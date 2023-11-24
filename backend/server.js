@@ -26,7 +26,6 @@ db.once('open', () => {
 
 // Counter variables
 let counter = 0;
-let autosaveCounter = 0;
 
 // Function to increment counter and get next value
 async function getNextSequenceValue() {
@@ -40,17 +39,6 @@ async function getNextSequenceValue() {
   }
 }
 
-// Function to increment autosave counter and get next value
-async function getNextAutosaveSequenceValue() {
-  try {
-    const autosaveCount = await AutosaveContent.countDocuments();
-    autosaveCounter = autosaveCount > 0 ? (await AutosaveContent.findOne().sort({ _id: -1 }))._id + 1 : 1;
-    return autosaveCounter;
-  } catch (error) {
-    console.error('Error while getting next autosave sequence value:', error);
-    throw error;
-  }
-}
 
 // Content schema and model
 const contentSchema = new mongoose.Schema({
@@ -61,16 +49,6 @@ const contentSchema = new mongoose.Schema({
 });
 
 const Content = mongoose.model('Content', contentSchema);
-
-// Autosave content schema and model
-const autosaveContentSchema = new mongoose.Schema({
-  _id: Number,
-  title: String,
-  body: String,
-  // Other fields as needed
-});
-
-const AutosaveContent = mongoose.model('AutosaveContent', autosaveContentSchema);
 
 // Endpoint to save new content
 app.post('/api/content', async (req, res) => {
@@ -96,27 +74,51 @@ app.post('/api/content', async (req, res) => {
   }
 });
 
-// Autosave endpoint to save content into the 'autosave' collection
+let autosaveCounter = 0;
+
+// In-memory cache for autosave content
+var latestAutosave = {};
+
+// Function to increment autosave counter and get next value
+async function getNextAutosaveSequenceValue() {
+  autosaveCounter++;
+  return autosaveCounter;
+}
+
+// Endpoint to save autosave content into the cache
 app.post('/api/autosave', async (req, res) => {
   const { title, body } = req.body;
 
   try {
-    const id = await getNextAutosaveSequenceValue(); // Get the next autosave ID
-
-    // Create a new autosave content item with the generated ID
-    const newAutosaveContent = new AutosaveContent({
-      _id: id,
+    autosaveCounter++; // Increment the autosave counter
+    // Create a new autosave content item
+    const newAutosaveContent = {
+      _id: autosaveCounter,
       title,
       body,
-    });
+    };
 
-    // Save the new autosave content
-    await newAutosaveContent.save();
+    // Save the new autosave content in the in-memory cache
+    latestAutosave = newAutosaveContent;
 
-    return res.status(200).json({ message: 'Autosave content saved successfully', content: newAutosaveContent });
+    return res.status(200).json({ message: 'Autosave content saved to cache', content: newAutosaveContent });
   } catch (error) {
-    console.error('Error while autosaving content:', error);
-    return res.status(500).json({ error: 'An error occurred while autosaving content' });
+    console.error('Error while saving autosave content:', error);
+    return res.status(500).json({ error: 'An error occurred while saving autosave content' });
+  }
+});
+
+// Endpoint to retrieve the latest autosave content from the cache
+app.get('/api/autosave/latest', async (req, res) => {
+  try {
+    if (!latestAutosave) {
+      return res.status(404).json({ error: 'No autosave content found' });
+    }
+
+    return res.status(200).json(latestAutosave);
+  } catch (error) {
+    console.error('Error while retrieving latest autosave content:', error);
+    return res.status(500).json({ error: 'An error occurred while retrieving latest autosave content' });
   }
 });
 
