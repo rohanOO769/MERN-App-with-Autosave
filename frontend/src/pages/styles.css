@@ -1,0 +1,74 @@
+/* styles.css */
+body {
+    background-image: url('./image.jpg');
+    background-size: cover; /* Adjusts to cover the entire body */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    background-attachment: fixed; /* Fixes the background position */
+}
+
+/* Styles for ContentEditor component */
+.content-editor {
+    font-family: Arial, sans-serif;
+    width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #ffffff, #98989800); /* Gradient background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+.content-editor h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.content-editor input[type="text"],
+.content-editor textarea {
+    width: 100%;
+    max-width: 100%; /* Ensure it doesn't extend horizontally */
+    height: 50px; /* Set a default height */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    resize: vertical; /* Allow vertical resizing */
+}
+
+.content-editor input[type="text"]:hover,
+.content-editor textarea:hover {
+    border-color: #007bff;
+}
+
+.content-editor button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    background-color: #004846;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.content-editor button:hover {
+    background-color: #0056b3;
+    border: 1px solid #007bff;
+}
+
+/* Additional styles for emphasized Save button */
+.content-editor button.save-button {
+    background-color: #28a745;
+}
+
+.content-editor button.save-button:hover {
+    background-color: #218838;
+}

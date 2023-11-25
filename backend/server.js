@@ -79,12 +79,6 @@ let autosaveCounter = 0;
 // In-memory cache for autosave content
 var latestAutosave = {};
 
-// Function to increment autosave counter and get next value
-async function getNextAutosaveSequenceValue() {
-  autosaveCounter++;
-  return autosaveCounter;
-}
-
 // Endpoint to save autosave content into the cache
 app.post('/api/autosave', async (req, res) => {
   const { title, body } = req.body;

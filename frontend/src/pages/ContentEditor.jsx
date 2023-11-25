@@ -1,6 +1,7 @@
 // ContentEditor.jsx
 
 import React, { useState, useEffect } from 'react';
+import backgroundImage from './image.jpg';
 
 const BASE_URL = 'http://localhost:5000/api'; // Replace with your backend URL
 
@@ -62,26 +63,48 @@ export const ContentEditor = ({ onSave, content }) => {
       return () => clearTimeout(autosaveTimer);
     }, [title, body]);
 
-    
+    // Function to restore previous autosaved data
+    const restorePreviousData = async () => {
+        try {
+          const response = await fetch(`${BASE_URL}/autosave/latest`);
+          if (!response.ok) {
+            throw new Error('Failed to fetch latest autosaved data');
+          }
+          const data = await response.json();
+          setTitle(data.title);
+          setBody(data.body);
+        } catch (error) {
+          console.error('Error restoring previous data:', error);
+        }
+      };
 
-  
+    useEffect(() => {
+        const shouldRestoreData = window.confirm('Seems like your page accidentally closed.\nPress OK to restore previous data.');
+        if (shouldRestoreData) {
+        restorePreviousData();
+        }
+    }, []);
+
     return (
-      <div>
-        <h1>Content Editor</h1>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="Title"
-        />
-        <textarea
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
-          placeholder="Body"
-        ></textarea>
-        <button onClick={() => handleSave(false)}>Save</button> {/* Trigger manual save */}
-      </div>
-    );
+        <div className="content-editor" >
+          <h1>Blog Page</h1>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Title"
+          />
+          <textarea
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            placeholder="Body"
+          ></textarea>
+          <button onClick={() => handleSave(false)}>Save</button>
+            
+           
+        </div>
+        
+      );
   };
 
   export const getContent = async () => {

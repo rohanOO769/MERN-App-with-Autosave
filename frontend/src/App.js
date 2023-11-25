@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import {  ContentEditor, getContent } from './pages/ContentEditor'; // Adjust the path based on your actual file structure
 import ViewContent from './pages/ViewContent'; // Adjust the path based on your actual file structure
+import "./pages/styles.css"
 
 function App() {
   const [content, setContent] = useState({ title: '', body: '' });
