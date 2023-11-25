@@ -2,6 +2,8 @@
 
 Overview
 This project is a content management system built using React for the frontend and Express for the backend. It allows users to create, edit, and view blog content. MongoDB is used as the database to store the content data.
+![image](https://github.com/rohanOO769/MERN-App-with-Autosave/assets/104089399/88ff8617-b331-4439-be88-11f3fb88915f)
+
 
 Features
 Content Editor
@@ -16,6 +18,8 @@ Users can manually save their content to update the database.
 
 Restore Previous Data
 In case of accidental closure, the system prompts the user to restore their last autosaved content.
+![image](https://github.com/rohanOO769/MERN-App-with-Autosave/assets/104089399/2d7ab83c-1fc3-4eec-9981-574f1f40c1be)
+
 
 Technologies Used
 Frontend: React.js
