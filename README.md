@@ -28,11 +28,6 @@ Node.js installed
 MongoDB installed or access to a MongoDB instance
 
 # Setup Instructions
-bash
-Copy code
-# Clone the repository
-git clone <repository-url>
-
 # Navigate to the project directory
 cd project-directory
 
@@ -44,8 +39,7 @@ npm install
 cd ../backend
 npm install
 Starting the Application
-bash
-Copy code
+
 # Start the backend server
 cd backend
 npm start
@@ -56,12 +50,12 @@ cd frontend
 npm start
 Access the application in your browser: http://localhost:3000
 
-API Endpoints
-POST /api/content: Create new blog content.
-POST /api/autosave: Save content drafts (autosave).
-GET /api/autosave/latest: Retrieve the latest autosaved content.
-PUT /api/content/:id: Update existing content by ID.
-DELETE /api/content/:id: Delete content by ID.
-GET /api/content: Retrieve all content.
-GET /api/content/:id: Retrieve content by ID.
-Contributing
+# API Endpoints
+#### POST /api/content: Create new blog content.
+#### POST /api/autosave: Save content drafts (autosave).
+#### GET /api/autosave/latest: Retrieve the latest autosaved content.
+#### PUT /api/content/:id: Update existing content by ID.
+#### DELETE /api/content/:id: Delete content by ID.
+#### GET /api/content: Retrieve all content.
+#### GET /api/content/:id: Retrieve content by ID.
+
