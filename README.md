@@ -42,13 +42,12 @@ npm install
 # Install dependencies for backend
 cd ../backend
 npm install
-Starting the Application
+
 
 # Start the backend server
 cd backend
-npm start
-bash
-Copy code
+node server.js
+
 # Start the frontend application
 cd frontend
 npm start
