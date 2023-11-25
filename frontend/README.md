@@ -1,10 +1,6 @@
-# Getting Started with Create React App
+## To Run the Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## To Run the App
-
-
+### npm i
 ### cd src
-### `npm start`
+### npm start
 
